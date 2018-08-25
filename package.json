@@ -1,0 +1,36 @@
+{
+  "name": "d3-canvas-time-series",
+  "version": "1.0.0",
+  "description": "Time sereis chart with D3.js and HTML canvas",
+  "main": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daengdaengLee/d3-canvas-time-series.git"
+  },
+  "keywords": [
+    "D3.js",
+    "canvas",
+    "timeseries"
+  ],
+  "author": "daengdaenglee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daengdaengLee/d3-canvas-time-series/issues"
+  },
+  "homepage": "https://github.com/daengdaengLee/d3-canvas-time-series#readme",
+  "dependencies": {
+    "d3": "^5.7.0",
+    "parcel-bundler": "^1.9.7"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1"
+  }
+}
