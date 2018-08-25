@@ -24,4 +24,4 @@ const data = {
 };
 
 // eslint-disable-next-line no-console
-fs.writeFile('sample.json', JSON.stringify(data), 'utf-8', e => console.log(e || 'Complete'));
+fs.writeFile('sample.js', `export default ${JSON.stringify(data)}`, 'utf-8', e => console.log(e || 'Complete'));
