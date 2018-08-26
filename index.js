@@ -14,11 +14,19 @@ const yList = csv
 const MIN_Y = d3.min(yList);
 const MAX_Y = d3.max(yList);
 
-const svgEl = document.querySelector('.svg');
-const svgWidth = svgEl.clientWidth;
-const svgHeight = svgEl.clientHeight;
-const width = svgWidth - 40;
-const height = svgHeight - 40;
+const vizEl = document.querySelector('.viz');
+const containerWidth = vizEl.clientWidth - 30;
+const constainerHeight = vizEl.clientHeight - 30;
+
+d3.select('.svg')
+  .attr('width', containerWidth)
+  .attr('height', constainerHeight);
+d3.select('.canvas')
+  .attr('width', containerWidth)
+  .attr('height', constainerHeight);
+
+const width = containerWidth - 40;
+const height = constainerHeight - 40;
 
 const xScale = d3
   .scaleLinear()
@@ -32,7 +40,11 @@ const yScale = d3
 const xAxis = d3
   .axisBottom()
   .scale(xScale)
-  .ticks(10);
+  .tickValues(sample.steps.map(step => step.value))
+  .tickFormat((d) => {
+    const step = sample.steps.find(obj => obj.value === d);
+    return step.label;
+  });
 const yAxis = d3
   .axisLeft()
   .scale(yScale)
@@ -42,6 +54,7 @@ d3.select('.svg')
   .append('g')
   .attr('transform', 'translate(20, 10)')
   .classed('chart-g', true);
+d3.select('.canvas').style('padding', '10px 0 0 20px');
 
 d3.select('.chart-g')
   .append('g')
@@ -57,3 +70,13 @@ d3.select('.chart-g')
   .append('g')
   .classed('y-axis', true)
   .call(yAxis);
+
+const ctx = document.querySelector('.canvas').getContext('2d');
+const lineGenerator = d3
+  .line()
+  .x(d => xScale(d[0]))
+  .y(d => yScale(d[1]))
+  .context(ctx);
+ctx.beginPath();
+lineGenerator(csv);
+ctx.stroke();

@@ -7,7 +7,7 @@ const csv = [
   ['X', ...[...Array(SERIES_NUM)].map((v, i) => `Y_${i + 1}`)],
   ...[...Array(MAX_X)].map((v1, i) => [
     i + 1,
-    ...[...Array(SERIES_NUM)].map(() => Math.random() * 10),
+    ...[...Array(SERIES_NUM)].map(() => Math.random() * 100),
   ]),
 ]
   .map(row => row.join(','))
