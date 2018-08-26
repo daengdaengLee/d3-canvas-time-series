@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import randomcolor from './randomcolor';
 import sample from './sample';
 
 const csv = sample.data.split('\n').map(rowStr => rowStr.split(',').map(cell => cell.trim()));
@@ -15,8 +16,8 @@ const MIN_Y = d3.min(yList);
 const MAX_Y = d3.max(yList);
 
 const vizEl = document.querySelector('.viz');
-const containerWidth = vizEl.clientWidth - 30;
-const constainerHeight = vizEl.clientHeight - 30;
+const containerWidth = vizEl.clientWidth - 80;
+const constainerHeight = vizEl.clientHeight - 80;
 
 d3.select('.svg')
   .attr('width', containerWidth)
@@ -52,9 +53,9 @@ const yAxis = d3
 
 d3.select('.svg')
   .append('g')
-  .attr('transform', 'translate(20, 10)')
+  .attr('transform', 'translate(30, 14)')
   .classed('chart-g', true);
-d3.select('.canvas').style('padding', '10px 0 0 20px');
+d3.select('.canvas').style('padding', '14px 0 0 30px');
 
 d3.select('.chart-g')
   .append('g')
@@ -72,11 +73,16 @@ d3.select('.chart-g')
   .call(yAxis);
 
 const ctx = document.querySelector('.canvas').getContext('2d');
-const lineGenerator = d3
+const lineGenerator = i => d3
   .line()
   .x(d => xScale(d[0]))
-  .y(d => yScale(d[1]))
+  .y(d => yScale(d[i]))
   .context(ctx);
-ctx.beginPath();
-lineGenerator(csv);
-ctx.stroke();
+
+const lineNum = csv[0].length;
+for (let i = 1; i < lineNum; i += 1) {
+  ctx.beginPath();
+  lineGenerator(i)(csv);
+  ctx.strokeStyle = randomcolor();
+  ctx.stroke();
+}

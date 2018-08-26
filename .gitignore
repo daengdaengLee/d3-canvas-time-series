@@ -63,3 +63,7 @@ typings/
 # Parcel bundler
 .cache/
 dist/
+
+# Mockups
+generateMockup.js
+sample.js
