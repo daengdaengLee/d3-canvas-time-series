@@ -41,6 +41,7 @@ const yScale = d3
 const xAxis = d3
   .axisBottom()
   .scale(xScale)
+  .tickSizeInner(-height)
   .tickValues(sample.steps.map(step => step.value))
   .tickFormat((d) => {
     const step = sample.steps.find(obj => obj.value === d);
@@ -49,13 +50,14 @@ const xAxis = d3
 const yAxis = d3
   .axisLeft()
   .scale(yScale)
+  .tickSizeInner(-width)
   .ticks(10);
 
 d3.select('.svg')
   .append('g')
   .attr('transform', 'translate(30, 14)')
   .classed('chart-g', true);
-d3.select('.canvas').style('padding', '14px 0 0 30px');
+d3.select('.canvas').style('padding', '15px 0 0 31px');
 
 d3.select('.chart-g')
   .append('g')
@@ -63,7 +65,6 @@ d3.select('.chart-g')
   .attr('transform', `translate(0, ${height})`)
   .call(xAxis);
 d3.selectAll('.svg .chart-g .x-axis .tick line')
-  .attr('y1', `-${height}`)
   .attr('stroke-dasharray', '10 4')
   .style('stroke', 'gray');
 
